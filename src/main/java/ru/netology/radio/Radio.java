@@ -4,19 +4,33 @@ public class Radio {
 
     private int currentRadioStation;
     private int currentLevelOfSound;
+    private int totalNumberOfStations = 10;
+    private int lastStation = totalNumberOfStations - 1;
+    private final int firstStation = 0;
+    private final int minLevelOfSound = 0;
+    private final int maxLevelOfSound = 100;
 
+    public Radio() {
+
+    }
+
+    public Radio(int totalNumberOfStations) {
+        this.totalNumberOfStations = totalNumberOfStations;
+        this.lastStation = totalNumberOfStations - 1;
+
+    }
 
     public int getCurrentRadioStation() {
         return currentRadioStation;
     }
 
     public void setCurrentRadioStation(int newCurrentRadioStation) {
-        if (newCurrentRadioStation < 0) {
-            currentRadioStation = 9;
+        if (newCurrentRadioStation < firstStation) {
+            currentRadioStation = lastStation;
             return;
         }
-        if (newCurrentRadioStation > 9) {
-            currentRadioStation = 0;
+        if (newCurrentRadioStation > lastStation) {
+            currentRadioStation = firstStation;
             return;
         }
         currentRadioStation = newCurrentRadioStation;
@@ -30,19 +44,20 @@ public class Radio {
     }
 
     public void setCurrentLevelOfSound(int newCurrentLevelOfSound) {
-        if (newCurrentLevelOfSound < 0) {
-            currentLevelOfSound = 0;
+        if (newCurrentLevelOfSound < minLevelOfSound) {
+            currentLevelOfSound = minLevelOfSound;
             return;
         }
-        if (newCurrentLevelOfSound > 10) {
-            currentLevelOfSound = 10;
+        if (newCurrentLevelOfSound > maxLevelOfSound) {
+            currentLevelOfSound = maxLevelOfSound;
             return;
         }
         currentLevelOfSound = newCurrentLevelOfSound;
     }
 
     public void nextStation() {
-        if (getCurrentRadioStation() <= 9) {
+
+        if (getCurrentRadioStation() <= lastStation) {
             currentRadioStation = currentRadioStation + 1;
             setCurrentRadioStation(currentRadioStation);
         } else {
@@ -51,7 +66,8 @@ public class Radio {
     }
 
     public void prevStation() {
-        if (getCurrentRadioStation() >= 0) {
+
+        if (getCurrentRadioStation() >= firstStation) {
             currentRadioStation = currentRadioStation - 1;
             setCurrentRadioStation(currentRadioStation);
         } else {
@@ -60,15 +76,15 @@ public class Radio {
     }
 
     public void setToFirstStation() {
-        currentRadioStation = 0;
+        currentRadioStation = firstStation;
     }
 
     public void setToLastStation() {
-        currentRadioStation = 9;
+        currentRadioStation = lastStation;
     }
 
     public void turnUpTheLevelOfSound() {
-        if (getCurrentLevelOfSound() < 10) {
+        if (getCurrentLevelOfSound() < maxLevelOfSound) {
             currentLevelOfSound = currentLevelOfSound + 1;
             setCurrentLevelOfSound(currentLevelOfSound);
         } else {
@@ -77,7 +93,7 @@ public class Radio {
     }
 
     public void turnDownTheLevelOfSound() {
-        if (getCurrentLevelOfSound() > 0) {
+        if (getCurrentLevelOfSound() > minLevelOfSound) {
             currentLevelOfSound = currentLevelOfSound - 1;
             setCurrentLevelOfSound(currentLevelOfSound);
         } else {
@@ -86,10 +102,10 @@ public class Radio {
     }
 
     public void setToMinLevelOfSound() {
-        currentLevelOfSound = 0;
+        currentLevelOfSound = minLevelOfSound;
     }
 
     public void setToMaxLevelOfSound() {
-        currentLevelOfSound = 10;
+        currentLevelOfSound = maxLevelOfSound;
     }
 }
